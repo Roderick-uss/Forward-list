@@ -1,0 +1,61 @@
+digraph structs {
+    bgcolor="0"
+    nodesep=0;
+    node [shape=plaintext;]
+    data [label=<
+        <TABLE BORDER="0" CELLBORDER="3" CELLSPACING="0" COLOR="#FF5E00">
+            <TR HEIGHT="30">
+<TD PORT="i1" WIDTH="40" HEIGHT="40"><FONT COLOR="#00fefc" FACE="Impact" POINT-SIZE="25">0</FONT></TD>
+<TD PORT="i2" WIDTH="40"><FONT COLOR="#00fefc" FACE="Impact" POINT-SIZE="25">10</FONT></TD>
+<TD PORT="i3" WIDTH="40"><FONT COLOR="#00fefc" FACE="Impact" POINT-SIZE="25">20</FONT></TD>
+<TD PORT="i4" WIDTH="40"><FONT COLOR="#00fefc" FACE="Impact" POINT-SIZE="25">30</FONT></TD>
+<TD PORT="i5" WIDTH="40"><FONT COLOR="#00fefc" FACE="Impact" POINT-SIZE="25">40</FONT></TD>
+<TD PORT="i6" WIDTH="40"><FONT COLOR="red" FACE="" POINT-SIZE="25">X</FONT></TD>
+<TD PORT="i7" WIDTH="40"><FONT COLOR="red" FACE="" POINT-SIZE="25">X</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+    prev [label=<
+        <TABLE BORDER="0" CELLBORDER="3" CELLSPACING="0" COLOR="#7d12ff">
+            <TR HEIGHT="30">
+<TD PORT="i1" WIDTH="40" HEIGHT="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="22">10</FONT></TD>
+<TD PORT="i2" WIDTH="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="22">20</FONT></TD>
+<TD PORT="i3" WIDTH="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="22">30</FONT></TD>
+<TD PORT="i4" WIDTH="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="22">40</FONT></TD>
+<TD PORT="i5" WIDTH="40"><FONT COLOR="#7FFF00" FACE="Impact" POINT-SIZE="22">50</FONT></TD>
+<TD PORT="i6" WIDTH="40"><FONT COLOR="#7FFF00" FACE="Impact" POINT-SIZE="22">60</FONT></TD>
+<TD PORT="i7" WIDTH="40"><FONT COLOR="#7FFF00" FACE="Impact" POINT-SIZE="22">NO</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+    next [label=<
+        <TABLE BORDER="0" CELLBORDER="3" CELLSPACING="0" COLOR="#DD0EFF">
+            <TR HEIGHT="30">
+<TD PORT="i1" WIDTH="40" HEIGHT="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="22">10</FONT></TD>
+<TD PORT="i2" WIDTH="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="22">20</FONT></TD>
+<TD PORT="i3" WIDTH="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="22">30</FONT></TD>
+<TD PORT="i4" WIDTH="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="22">40</FONT></TD>
+<TD PORT="i5" WIDTH="40"><FONT COLOR="#7FFF00" FACE="Impact" POINT-SIZE="22">50</FONT></TD>
+<TD PORT="i6" WIDTH="40"><FONT COLOR="#7FFF00" FACE="Impact" POINT-SIZE="22">60</FONT></TD>
+<TD PORT="i7" WIDTH="40"><FONT COLOR="#7FFF00" FACE="Impact" POINT-SIZE="22">NO</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+    data->next->prev[minlen=2; style="invis"];
+    edge[color="#1F51FF";arrowhead="empty";constraint=false;penwidth=2.5];
+    prev:i1:n->prev:i2:n[color="#FF3131"];
+    prev:i2:s->prev:i4:s;
+    prev:i4:n->prev:i3:n[color="#FF3131"];
+    prev:i3:s->prev:i5:s;
+    prev:i5:n->prev:i6:n[color="#FF3131"];
+    prev:i6:s->prev:i7:s;
+    prev:i7:n->prev:i1:n[color="#FF3131"];
+
+    next:i1:n->next:i2:n[color="#FF3131"];
+    next:i2:s->next:i4:s;
+    next:i4:n->next:i3:n[color="#FF3131"];
+    next:i3:s->next:i5:s;
+    next:i5:n->next:i6:n[color="#FF3131"];
+    next:i6:s->next:i7:s;
+    next:i7:n->next:i1:n[color="#FF3131"];
+}

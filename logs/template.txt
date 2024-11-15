@@ -1,0 +1,82 @@
+digraph structs {
+    bgcolor="0"
+    nodesep=0;
+    node [shape=plaintext;]
+
+YES_DATA
+{
+    data [label=<
+        <TABLE BORDER="0" CELLBORDER="3" CELLSPACING="0" COLOR="#FF5E00">
+            <TR>
+<TD PORT="i0" WIDTH="40" HEIGHT="40"><FONT COLOR="#00FEFC" FACE="Impact" POINT-SIZE="25">$</FONT></TD>
+%2%
+<TD PORT="i$" WIDTH="40"><FONT COLOR="#00FEFC" FACE="Impact" POINT-SIZE="25">$</FONT></TD>
+<TD PORT="i$" WIDTH="40"><FONT COLOR="#FF0000" FACE=""       POINT-SIZE="25">X</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+}
+NO_DATA
+{
+    data[label="NULL POINTER TO DATA"; fillcolor="#800000"; fontcolor="#A2FF05"; shape="box"; color="#FF5E00"; style="filled"; fontsize="24"; fontname="Impact"; penwidth="3"];
+}
+
+YES_NEXT
+{
+    next [label=<
+        <TABLE BORDER="0" CELLBORDER="3" CELLSPACING="0" COLOR="#DD0EFF">
+            <TR>
+<TD PORT="i0" WIDTH="40" HEIGHT="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="25">$</FONT></TD>
+%2%
+<TD PORT="i$" WIDTH="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="25">$</FONT></TD>
+<TD PORT="i$" WIDTH="40"><FONT COLOR="#7FFF00" FACE="Impact" POINT-SIZE="25">$</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+}
+NO_NEXT
+{
+    next[label="NULL POINTER TO NEXT"; fillcolor="#800000"; fontcolor="#A2FF05"; shape="box"; color="#DD0EFF"; style="filled"; fontsize="24"; fontname="Impact"; penwidth="3"];
+}
+
+YES_PREV
+{
+    prev [label=<
+        <TABLE BORDER="0" CELLBORDER="3" CELLSPACING="0" COLOR="#7D12FF">
+            <TR>
+<TD PORT="i0" WIDTH="40" HEIGHT="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="25">$</FONT></TD>
+%2%
+<TD PORT="i$" WIDTH="40"><FONT COLOR="#E7EE4F" FACE="Impact" POINT-SIZE="25">$</FONT></TD>
+<TD PORT="i$" WIDTH="40"><FONT COLOR="#7FFF00" FACE="Impact" POINT-SIZE="25">$</FONT></TD>
+            </TR>
+        </TABLE>
+    >];
+}
+NO_PREV
+{
+    prev[label="NULL POINTER TO PREV"; fillcolor="#800000"; fontcolor="#A2FF05"; shape="box"; color="#7D12FF"; style="filled"; fontsize="24"; fontname="Impact"; penwidth="3"];
+}
+
+    data->next->prev[minlen=2; style="invis"];
+    edge[color="#1F51FF";arrowhead="empty";constraint=false;penwidth=2.5];
+YES_NEXT
+{
+    edge[color="#1F51FF";]
+    %1%
+    next:i$:n->next:i$:n;
+    dge[color="#FF3131"]
+    %1%
+    next:i$:s->next:i$:s;
+}
+
+YES_PREV
+{
+    edge[color="#1F51FF";]
+    %1%
+    prev:i$:n->prev:i$:n;
+    edge[color="#FF3131"]
+    %1%
+    prev:i$:s->prev:i$:s;
+}
+    free[fillcolor="0"; shape=Mrecord; label="FREE|$"; color="#FF13F0"]
+}

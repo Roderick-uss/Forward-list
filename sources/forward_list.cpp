@@ -15,8 +15,8 @@ static const int MAX_LIST_CAPACITY = 128;
 static const int MAX_TERMINAL_REQUEST_SIZE = 50;
 
 static const char* LOG_FILE_NAME = "list_logs.html";
-static const char* dump_dot_file = "graph/list_dump.dot";
-static const char* dump_svg_file = "logs/list_dump.svg";
+static const char* DUMP_DOT_FILE = "logs/list_dump.dot";
+static const char* DUMP_SVG_FILE = "logs/list_dump.svg";
 static FILE* const STDLOG = fopen(LOG_FILE_NAME, "wb");
 
 enum errors {
@@ -101,6 +101,21 @@ int list_empty(const flist_t* list) {
     return !list->next[0];
 }
 
+int list_find(const flist_t* list, int index) {
+    ASSERT_LIST(list);
+
+    int i = 0;
+    int cnt = 0;
+
+    while (cnt != index && list->next != 0) {
+        i = list->next[i];
+        cnt++;
+    }
+
+    if (cnt != index) return -1;
+    return i;
+}
+
 int list_insert(flist_t* list, int item, int index) {
     ASSERT_LIST(list);
 
@@ -154,21 +169,6 @@ int list_erase(flist_t* list, int index) {
     return current;
 }
 
-int list_find(const flist_t* list, int index) {
-    ASSERT_LIST(list);
-
-    int i = 0;
-    int cnt = 0;
-
-    while (cnt != index && list->next != 0) {
-        i = list->next[i];
-        cnt++;
-    }
-
-    if (cnt != index) return -1;
-    return i;
-}
-
 static int list_dump(const flist_t* list, int error) {
     if (!error) return 0;
 
@@ -177,15 +177,52 @@ static int list_dump(const flist_t* list, int error) {
         return error;
     }
 
-    //todo dump
+    if (ZERO_DATA & error) {
+        LOG_FATAL("NO POINTER TO DATA")
+    }
+
+    FILE* stddot = fopen(DUMP_DOT_FILE, "wb");
+    //todo dump graph
+    fclose(stddot);
 
     char term_request[MAX_TERMINAL_REQUEST_SIZE] = {};
-    sprintf(term_request, "dot %s -Tpng -o %s", dump_dot_file, dump_svg_file);
+    sprintf(term_request, "dot %s -Tpng -o %s", DUMP_DOT_FILE, DUMP_SVG_FILE);
     system(term_request);
+
+    fprintf(STDLOG, "<img src=\"%s\" alt=\"Ordinary list dump\">\n\n", DUMP_SVG_FILE);
 
     return error & ~PRINT_LIST;
 }
 
 int close_list_logs() {
-    fclose(STDLOG);
+    #ifdef INIT_LIST_LOGS
+    LOG_FATAL("LOGS DID NOT INITED");
+
+    return 1;
+    #else
+        #ifndef CLOSE_LIST_LOGS
+            #define CLOSE_LIST_LOGS
+            fprintf(STDLOG, "</body>\n</html>\n");
+
+            fclose(STDLOG);
+            return 0;
+        #else
+            LOG_FATAL("LOGS ALREADY CLOSED\n");
+
+            return 1;
+        #endif
+    #endif
+}
+
+int init_list_logs() {
+    #ifndef INIT_LIST_LOGS
+        #define INIT_LIST_LOGS
+        fprintf(STDLOG, "<!DOCTYPE html>\n<html>\n<body>\n");
+
+        return 0;
+    #else
+        LOG_FATAL("LOGS ALREADY INITED\n");
+
+        return 1;
+    #endif
 }
