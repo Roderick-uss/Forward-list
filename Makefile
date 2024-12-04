@@ -16,9 +16,7 @@ S_PREFIX = sources/
 H_PREFIX = headers/
 T_PREFIX = text_file/
 
-STACK_HEADER = ../Stack/sources/stack.h
-
-SOURCES = main.cpp commoner.cpp
+SOURCES = commoner main forward_list
 
 OBJECTS := $(patsubst %,$(O_PREFIX)%.o,$(SOURCES))
 
@@ -27,7 +25,7 @@ HEADER_LIST =$(H_PREFIX)*.h $(STACK_HEADER)
 all: main
 
 run: main
-	@./$(B_PREFIX)main.exe
+	@./$(B_PREFIX)main
 
 main: $(OBJECTS)
 	@mkdir -p $(B_PREFIX)
